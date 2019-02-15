@@ -1,10 +1,8 @@
-import React, { Component } from 'react'
-import { polyfill } from 'react-lifecycles-compat'
-import PropTypes from 'prop-types'
+import { Component } from 'inferno'
 import { BaseNode, interval } from 'kapellmeister'
 import mergeKeys from '../core/mergeKeys'
 import { ENTER, UPDATE, LEAVE } from '../core/types'
-import { numeric } from '../utils'
+import { numeric, Children } from '../utils'
 
 class NodeGroup extends Component {
   constructor(props) {
@@ -188,44 +186,44 @@ class NodeGroup extends Component {
 
   render() {
     const renderedChildren = this.props.children(this.state.nodes)
-    return renderedChildren && React.Children.only(renderedChildren)
+    return renderedChildren && Children.only(renderedChildren)
   }
 }
 
-NodeGroup.propTypes = {
-  /**
-   * An array. The data prop is treated as immutable so the nodes will only update if prev.data !== next.data.
-   */
-  data: PropTypes.array.isRequired,
-  /**
-   * Function that returns a string key given the data and its index. Used to track which nodes are entering, updating and leaving.
-   */
-  keyAccessor: PropTypes.func.isRequired,
-  /**
-   * A function that returns an interpolator given the begin value, end value, attr and namespace. Defaults to numeric interpolation. See docs for more.
-   */
-  interpolation: PropTypes.func,
-  /**
-   * A function that returns the starting state. The function is passed the data and index and must return an object.
-   */
-  start: PropTypes.func.isRequired,
-  /**
-   * A function that **returns an object or array of objects** describing how the state should transform on enter.  The function is passed the data and index.
-   */
-  enter: PropTypes.func,
-  /**
-   * A function that **returns an object or array of objects** describing how the state should transform on update.  The function is passed the data and index.
-   */
-  update: PropTypes.func,
-  /**
-   * A function that **returns an object or array of objects** describing how the state should transform on leave.  The function is passed the data and index.
-   */
-  leave: PropTypes.func,
-  /**
-   * A function that receives an array of nodes.
-   */
-  children: PropTypes.func.isRequired,
-}
+// NodeGroup.propTypes = {
+//   /**
+//    * An array. The data prop is treated as immutable so the nodes will only update if prev.data !== next.data.
+//    */
+//   data: PropTypes.array.isRequired,
+//   /**
+//    * Function that returns a string key given the data and its index. Used to track which nodes are entering, updating and leaving.
+//    */
+//   keyAccessor: PropTypes.func.isRequired,
+//   /**
+//    * A function that returns an interpolator given the begin value, end value, attr and namespace. Defaults to numeric interpolation. See docs for more.
+//    */
+//   interpolation: PropTypes.func,
+//   /**
+//    * A function that returns the starting state. The function is passed the data and index and must return an object.
+//    */
+//   start: PropTypes.func.isRequired,
+//   /**
+//    * A function that **returns an object or array of objects** describing how the state should transform on enter.  The function is passed the data and index.
+//    */
+//   enter: PropTypes.func,
+//   /**
+//    * A function that **returns an object or array of objects** describing how the state should transform on update.  The function is passed the data and index.
+//    */
+//   update: PropTypes.func,
+//   /**
+//    * A function that **returns an object or array of objects** describing how the state should transform on leave.  The function is passed the data and index.
+//    */
+//   leave: PropTypes.func,
+//   /**
+//    * A function that receives an array of nodes.
+//    */
+//   children: PropTypes.func.isRequired,
+// }
 
 NodeGroup.defaultProps = {
   enter: () => {},
@@ -233,8 +231,6 @@ NodeGroup.defaultProps = {
   leave: () => {},
   interpolation: numeric,
 }
-
-polyfill(NodeGroup)
 
 export default NodeGroup
 
